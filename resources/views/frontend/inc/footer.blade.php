@@ -20,11 +20,11 @@
                 <div class="block-5 mb-5">
                     <h3 class="footer-heading mb-4">Contact Info</h3>
                     <ul class="list-unstyled">
-                        <li class="address">{!! $settings['address'] !!}</li>
+                        <li class="address">{!! $settings['address'] ?? '' !!}</li>
                         <li class="phone"><a
-                                href="tel://{{ str_replace(' ', ' ', $settings['phone']) }}">{{ $settings['phone'] }}</a>
+                                href="tel://{{ str_replace(' ', ' ', $settings['phone'] ?? '') }}">{{ $settings['phone'] ?? '' }}</a>
                         </li>
-                        <li class="email">{{ $settings['email'] }}</li>
+                        <li class="email">{{ $settings['email'] ?? '' }}</li>
                     </ul>
                 </div>
 

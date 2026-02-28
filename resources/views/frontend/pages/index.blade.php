@@ -24,29 +24,29 @@
             <div class="row">
                 <div class="col-md-6 col-lg-4 d-lg-flex mb-4 mb-lg-0 pl-4" data-aos="fade-up" data-aos-delay="">
                     <div class="icon mr-4 align-self-start">
-                        <span class="{{ $about->text_1_icon }}"></span>
+                        <span class="{{ $about->text_1_icon ?? ''}}"></span>
                     </div>
                     <div class="text">
-                        <h2 class="text-uppercase">{{ $about->text_1 }}</h2>
-                        <p>{{ $about->text_1_content }}</p>
+                        <h2 class="text-uppercase">{{ $about->text_1 ?? '' }}</h2>
+                        <p>{{ $about?->text_1_content ?? ''}}</p>
                     </div>
                 </div>
                 <div class="col-md-6 col-lg-4 d-lg-flex mb-4 mb-lg-0 pl-4" data-aos="fade-up" data-aos-delay="100">
                     <div class="icon mr-4 align-self-start">
-                        <span class="{{ $about->text_2_icon }}"></span>
+                        <span class="{{ $about->text_2_icon ?? ''}}"></span>
                     </div>
                     <div class="text">
-                        <h2 class="text-uppercase">{{ $about->text_2 }}</h2>
-                        <p>{{ $about->text_2_content }}</p>
+                        <h2 class="text-uppercase">{{ $about->text_2 ?? ''}}</h2>
+                        <p>{{ $about->text_2_content ?? ''}}</p>
                     </div>
                 </div>
                 <div class="col-md-6 col-lg-4 d-lg-flex mb-4 mb-lg-0 pl-4" data-aos="fade-up" data-aos-delay="200">
                     <div class="icon mr-4 align-self-start">
-                        <span class="{{ $about->text_3_icon }}"></span>
+                        <span class="{{ $about->text_3_icon ?? ''}}"></span>
                     </div>
                     <div class="text">
-                        <h2 class="text-uppercase">{{ $about->text_3 }}</h2>
-                        <p>{{ $about->text_3_content }}</p>
+                        <h2 class="text-uppercase">{{ $about->text_3 ?? ''}}</h2>
+                        <p>{{ $about->text_3_content ?? ''}}</p>
                     </div>
                 </div>
             </div>
@@ -59,12 +59,12 @@
                 @if (!empty($categories) && $categories->count() > 0)
                     @foreach ($categories->where('cat_ust', null) as $category)
                         <div class="col-sm-6 col-md-6 col-lg-4 mb-4 mb-lg-0" data-aos="fade" data-aos-delay="">
-                            <a class="block-2-item" href="{{ url($category->slug) }}">
+                            <a class="block-2-item" href="{{ url($category->slug ?? '') }}">
                                 <figure class="image">
-                                    <img src="{{ asset($category->image) }}" alt="" class="img-fluid">
+                                    <img src="{{ asset($category->image ?? '') }}" alt="" class="img-fluid">
                                 </figure>
                                 <div class="text">
-                                    <h3>{{ $category->name }}</h3>
+                                    <h3>{{ $category->name ?? ''}}</h3>
                                 </div>
                             </a>
                         </div>
