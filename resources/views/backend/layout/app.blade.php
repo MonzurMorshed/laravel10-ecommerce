@@ -5,7 +5,9 @@
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>Shoppers Admin Panel</title>
+    <title>{{ $settings['brand'] ?? 'Ecommerce' }} | Admin Panel</title>
+    <!-- favicon -->
+    <link rel="shortcut icon" href="{{ asset($settings['favicon'] ?? '') }}" type="image/x-icon"/>
     <!-- plugins:css -->
     <link rel="stylesheet" href="{{ asset('backend') }}/vendors/feather/feather.css">
     <link rel="stylesheet" href="{{ asset('backend') }}/vendors/ti-icons/css/themify-icons.css">
@@ -24,7 +26,6 @@
     <link rel="stylesheet" href="{{ asset('backend') }}/css/alertify.min.css" />
     <link rel="stylesheet" href="{{ asset('backend') }}/css/alertify-bootstrap.min.css" />
     <!-- endinject -->
-    <link rel="shortcut icon" href="images/favicon.png" />
 
     @yield('customcss')
 
@@ -36,8 +37,10 @@
         <!-- partial:partials/_navbar.html -->
         @include('backend.inc.header')
         <!-- partial -->
+        
         <div class="container-fluid page-body-wrapper">
             <!-- partial:partials/_settings-panel.html -->
+            {{--
             <div class="theme-setting-wrapper">
                 <div id="settings-trigger"><i class="ti-settings"></i></div>
                 <div id="theme-settings" class="settings-panel">
@@ -222,6 +225,7 @@
                     <!-- chat tab ends -->
                 </div>
             </div>
+            --}}
             <!-- partial -->
             <!-- partial:partials/_sidebar.html -->
             @include('backend.inc.sidebar')

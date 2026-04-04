@@ -1,28 +1,28 @@
 @extends('backend.layout.app')
 
+@section('customcss')
+    <link rel="stylesheet" href="{{ asset('css/backendStyle.css') }}">
+@endsection
+
 @section('content')
+    <div class="container-fluid py-4">
     <div class="row">
-        <div class="col-lg-12 grid-margin stretch-card">
-            <div class="card">
-                <div class="card-body">
-                    <h4 class="card-title">Basic Table</h4>
-                    <p class="card-description">
-                        <a href="{{ route('panel.category.create') }}" class="btn btn-primary">Add</a>
-                    </p>
+        <div class="col-12">
+            <div class="card custom-card">
+                <div class="card-header bg-transparent border-0 d-flex justify-content-between align-items-center p-4">
+                    <h3 class="mb-0 font-weight-bold" style="color: #32325d;">Category Management</h3>
+                    <a href="{{ route('panel.category.create') }}" class="btn btn-primary shadow-sm" style="border-radius: 20px; padding: 10px 25px;">
+                        <i class="fas fa-plus mr-2"></i> Create New
+                    </a>
+                </div>
 
-                    @if (session()->get('success'))
-                        <div class="alert alert-success">
-                            {{ session()->get('success') }}
-                        </div>
-                    @endif
-
-                    <div class="table-responsive">
-                        <table class="table">
+                <div class="table-responsive">
+                    <table class="table align-items-center table-flush">
                             <thead>
                                 <tr>
                                     <th>Image</th>
-                                    <th>Kategori</th>
-                                    <th>Alt Kategori</th>
+                                    <th>Category</th>
+                                    <th>Sub Category</th>
                                     <th>Status</th>
                                     <th>Action</th>
                                 </tr>
@@ -40,7 +40,7 @@
                                                 <div class="checkbox">
                                                     <label>
                                                         <input type="checkbox" class="durum" data-on="Active"
-                                                            data-off="Passive" data-onstyle="success" data-offstyle="danger"
+                                                            data-off="Inactive" data-onstyle="success" data-offstyle="danger"
                                                             data-toggle="toggle"
                                                             {{ $category->status == '1' ? 'checked' : '' }}>
                                                     </label>

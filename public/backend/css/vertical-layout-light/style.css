@@ -24598,6 +24598,21 @@ dl li {
   border-bottom: 0;
 }
 
+.card-title span {
+    font-size: 24px;
+    font-weight: 600;
+}
+
+.btn label {
+  font-size: 1.125rem;
+  font-weight: 600;
+}
+
+.btn {
+  font-size: 1.125rem;
+  font-weight: 600;
+}
+
 /* Tables */
 .table, .jsgrid .jsgrid-table {
   margin-bottom: 0;
@@ -24607,7 +24622,7 @@ dl li {
   border-top: 0;
   border-bottom-width: 1px;
   font-weight: 600;
-  font-size: .875rem;
+  font-size: 1.3rem;
 }
 
 .table thead th i, .jsgrid .jsgrid-table thead th i {
@@ -24620,6 +24635,7 @@ dl li {
   vertical-align: middle;
   line-height: 1;
   white-space: nowrap;
+  font-size: 1.2rem !important;
 }
 
 

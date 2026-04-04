@@ -2,6 +2,8 @@
 
 @section('content')
     @if (!empty($slider))
+    @include('frontend.inc.slider')
+    {{--
         <div class="site-blocks-cover" style="background-image: url({{ asset($slider->image ?? '') }});" data-aos="fade">
             <div class="container">
                 <div class="row align-items-start align-items-md-center justify-content-end">
@@ -17,6 +19,7 @@
                 </div>
             </div>
         </div>
+    --}}
     @endif
 
     <div class="site-section site-section-sm site-blocks-1">

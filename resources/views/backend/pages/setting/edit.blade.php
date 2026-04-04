@@ -42,7 +42,7 @@
                     @if (isset($setting->set_type) && $setting->set_type == 'image')
                         <div class="form-group">
                             <div class="input-group col-xs-12 mb-2">
-                                <img src="{{ asset($setting->data ?? 'img/noimage.webp') }}" alt="">
+                                <img src="{{ asset($setting->data ?? 'img/noimage.webp') }}" alt="" style="max-width: 200px; max-height: 200px;" />
                             </div>
                         </div>
                     @endif
@@ -54,7 +54,7 @@
                             @method('PUT')
                         @endif
 
-                        <select name="set_type" class="form-control" id="setTypeSelect">
+                        <select name="set_type" class="form-control d-none" id="setTypeSelect">
                             <option value="">
                                 Select Type
                             </option>
@@ -94,7 +94,7 @@
                         <div class="form-group">
                             <label for="name">Key</label>
                             <input type="text" class="form-control" id="name" value="{{ $setting->name ?? '' }}"
-                                name="name" placeholder="Key">
+                                name="name" placeholder="Key" readonly>
                         </div>
                         <div class="form-group">
                             <label for="data">Value</label>

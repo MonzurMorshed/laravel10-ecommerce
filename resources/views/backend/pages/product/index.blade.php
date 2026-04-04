@@ -1,22 +1,23 @@
 @extends('backend.layout.app')
 
+@section('customcss')
+    <link rel="stylesheet" href="{{ asset('css/backendStyle.css') }}">
+@endsection
+
 @section('content')
+    <div class="container-fluid py-4">
     <div class="row">
-        <div class="col-lg-12 grid-margin stretch-card">
-            <div class="card">
-                <div class="card-body">
-                    <h4 class="card-title">Basic Table</h4>
-                    <p class="card-description">
-                        <a href="{{ route('panel.product.create') }}" class="btn btn-primary">Add</a>
-                    </p>
+        <div class="col-12">
+            <div class="card custom-card">
+                <div class="card-header bg-transparent border-0 d-flex justify-content-between align-items-center p-4">
+                    <h3 class="mb-0 font-weight-bold" style="color: #32325d;">Product Management</h3>
+                    <a href="{{ route('panel.product.create') }}" class="btn btn-primary shadow-sm" style="border-radius: 20px; padding: 10px 25px;">
+                        <i class="fas fa-plus mr-2"></i> Create New
+                    </a>
+                </div>
 
-                    @if (session()->get('success'))
-                        <div class="alert alert-success">
-                            {{ session()->get('success') }}
-                        </div>
-                    @endif
-
-                    <div class="table-responsive">
+                <div class="table-responsive">
+                    <table class="table align-items-center table-flush">
                         <table class="table">
                             <thead>
                                 <tr>

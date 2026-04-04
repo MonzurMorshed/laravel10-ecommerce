@@ -10,10 +10,15 @@ use App\Http\Controllers\Backend\DashboardController;
 use App\Http\Controllers\Backend\OrderController;
 use App\Http\Controllers\Backend\ProductController;
 
+Route::group(['middleware' => 'panelsetting', 'prefix'=>'panel', 'as'=>'panel.'], function(){
+    Auth::routes();
+});
+
 Route::group(['middleware' => ['panelsetting', 'auth'], 'prefix'=>'panel', 'as'=>'panel.'], function(){
-    Route::get('/', [DashboardController::class,'index'])->name('index');
+
+    Route::get('/dashboard', [DashboardController::class,'index'])->name('dashboard');
     // slider route
-    Route::get('/slider', [SliderController::class, 'index'])->name('slider.index');
+    Route::get('/slider', [SliderController::class, 'index'])->name('slider.list');
     Route::get('/slider/add', [SliderController::class, 'create'])->name('slider.create');
     Route::get('/slider/{id}/edit', [SliderController::class, 'edit'])->name('slider.edit');
     Route::post('/slider/store', [SliderController::class, 'store'])->name('slider.store');
@@ -24,7 +29,8 @@ Route::group(['middleware' => ['panelsetting', 'auth'], 'prefix'=>'panel', 'as'=
     // Route::resource('/category', CategoryController::class); // tüm kategori rotalarını kapsar
     // Route::resource('/category', CategoryController::class)->only('destroy'); // sadece destroy kabul edilirdi
     // Route::resource('/category', CategoryController::class)->only(['index', 'store', 'destroy']); // sadece belirtilen rotalar olsun
-    Route::resource('/category', CategoryController::class)->except('destroy'); // destroy çıkartılır.
+    Route::resource('/category', CategoryController::class)->except(['index', 'destroy']); // destroy çıkartılır.
+    Route::get('/category', [CategoryController::class, 'index'])->name('category.list');
     Route::delete('/category/destroy', [CategoryController::class, 'destroy'])->name('category.destroy');
     Route::post('/category-status/update', [CategoryController::class, 'status'])->name('category.status');
     // about route
@@ -44,7 +50,8 @@ Route::group(['middleware' => ['panelsetting', 'auth'], 'prefix'=>'panel', 'as'=
     Route::put('/setting/{id}/update', [SettingController::class, 'update'])->name('setting.update');
     Route::delete('/setting/destroy', [SettingController::class, 'destroy'])->name('setting.destroy');
     // product route
-    Route::resource('/product', ProductController::class)->except('destroy');
+    Route::resource('/product', ProductController::class)->except(['index', 'destroy']);
+    Route::get('/product', [ProductController::class, 'index'])->name('product.list');
     Route::delete('/product/destroy', [ProductController::class, 'destroy'])->name('product.destroy');
     Route::post('/product-status/update', [ProductController::class, 'status'])->name('product.status');
     // order route

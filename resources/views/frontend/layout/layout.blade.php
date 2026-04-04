@@ -2,9 +2,12 @@
 <html lang="en">
 
 <head>
-    <title>Shoppers &mdash; E-Commerce</title>
+    <title>{{ $settings['brand'] ?? 'Shoppers &mdash; E-Commerce' }}</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    // here will favicon be added in future
+    <link rel="shortcut icon" href="{{ asset($settings['favicon'] ?? '') }}" type="image/x-icon"/>
 
     <link rel="stylesheet" href="{{ asset('/') }}fonts/icomoon/style.css">
 
@@ -18,6 +21,8 @@
     <link rel="stylesheet" href="{{ asset('/') }}css/aos.css">
 
     <link rel="stylesheet" href="{{ asset('/') }}css/style.css">
+
+    <link rel="stylesheet" href="{{ asset('/') }}css/slider.css">
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" />
 

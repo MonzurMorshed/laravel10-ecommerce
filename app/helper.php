@@ -28,6 +28,45 @@ if(!function_exists('resimyukle')){
     }
 }
 
+if (!function_exists('uploadImage')) {
+
+    function uploadImage($file, $path, $oldImage = null)
+    {
+        if (!$file) {
+            return $oldImage;
+        }
+
+        // create folder if not exists
+        if (!file_exists(public_path($path))) {
+            mkdir(public_path($path), 0755, true);
+        }
+
+        // delete old image
+        if ($oldImage && file_exists(public_path($oldImage))) {
+            unlink(public_path($oldImage));
+        }
+
+        // generate safe filename
+        $imageName = time().'_'.str_replace(' ', '_', $file->getClientOriginalName());
+
+        $file->move(public_path($path), $imageName);
+
+        return rtrim($path,'/').'/'.$imageName;
+    }
+}
+
+if (!function_exists('deleteImage')) {
+
+    function deleteImage($imagePath)
+    {
+        if ($imagePath && file_exists(public_path($imagePath))) {
+            unlink(public_path($imagePath));
+        }
+
+        return true;
+    }
+}
+
 if(!function_exists('strLimit')){
     function strLimit($text, $limit, $url=null){
         if($url == null){

@@ -19,9 +19,17 @@ class RedirectIfAuthenticated
     {
         $guards = empty($guards) ? [null] : $guards;
 
+        // dd($request->segment(1),123);
+
+        $segments = $request->segment(1);
+
         foreach ($guards as $guard) {
             if (Auth::guard($guard)->check()) {
-                return redirect(RouteServiceProvider::HOME);
+                if($segments == 'panel') {
+                    return redirect(route('panel.dashboard'));
+                } else {
+                    return redirect(RouteServiceProvider::HOME);
+                }
             }
         }
 

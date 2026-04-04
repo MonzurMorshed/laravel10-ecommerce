@@ -1,10 +1,21 @@
-@extends('frontend.layout.layout')
+@extends('auth.layout.layout')
+
+@push('styles')
+    <link rel="stylesheet" href="{{ asset('css/login.css') }}">
+@endpush
 
 @section('content')
-<div class="container">
+
+<div class="background-blobs"></div>
+
+<main class="glass-container">
+    <h1 class="logo p-4 rounded">
+        <img src="{{ asset($settings['logo'] ?? '') }}" alt="Logo" class="img-fluid" style="height: 34px;" />
+        <span>Pikachueshop</span>
+    </h1>
     <div class="row justify-content-center">
-        <div class="col-md-8">
-            <div class="card">
+        <div class="col-md-12">
+            <div class="card  text-[#fff]">
                 <div class="card-header">{{ __('Reset Password') }}</div>
 
                 <div class="card-body">
@@ -61,5 +72,5 @@
             </div>
         </div>
     </div>
-</div>
+</main>
 @endsection

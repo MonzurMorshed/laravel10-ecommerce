@@ -6,9 +6,11 @@
             <div class="card">
                 <div class="card-body">
                     <h4 class="card-title">Site Settings</h4>
+                    {{--
                     <p class="card-description">
-                        <a href="{{ route('panel.setting.create') }}" class="btn btn-primary">Add</a>
-                    </p>
+                        <a href="{{ route('panel.setting.create') }}" class="btn btn-primary">Create New</a>
+                    </p> 
+                    --}}
 
                     @if (session()->get('success'))
                         <div class="alert alert-success">
@@ -20,9 +22,8 @@
                         <table class="table">
                             <thead>
                                 <tr>
-                                    <th>Key</th>
+                                    <th>Name</th>
                                     <th>Value</th>
-                                    <th>Key Type</th>
                                     <th>Action</th>
                                 </tr>
                             </thead>
@@ -30,20 +31,20 @@
                                 @if (!empty($settings) && $settings->count() > 0)
                                     @foreach ($settings as $setting)
                                         <tr class="item" item-id="{{ $setting->id }}">
-                                            <td>{{ $setting->name }}</td>
+                                            <td>{{ ucFirst($setting->name) }}</td>
                                             <td>
                                                 @if ($setting->set_type == 'image')
                                                     <img src="{{ asset($setting->data) }}" alt="img" />
                                                 @else
-                                                    {!! strLimit($setting->data, 20, route('panel.setting.edit', $setting->id)) !!}
+                                                    {!! strLimit($setting->data, 30, route('panel.setting.edit', $setting->id)) !!}
                                                 @endif
                                             </td>
-                                            <td>{{ $setting->set_type }}</td>
+                                            {{--<td>{{ $setting->set_type }}</td> --}}
                                             <td class="d-flex">
                                                 <a href="{{ route('panel.setting.edit', $setting->id) }}"
                                                     class="btn btn-primary mr-2">Edit
                                                 </a>
-                                                <button type="button" class="deleteBtn btn btn-danger">Delete</button>
+                                                {{-- <button type="button" class="deleteBtn btn btn-danger">Delete</button> --}}
                                             </td>
                                         </tr>
                                     @endforeach

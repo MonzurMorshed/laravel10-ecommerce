@@ -39,50 +39,53 @@
                         @endif
 
                         <div class="form-group">
-                            <div class="input-group col-xs-12">
-                                <img src="{{ asset($slider->image ?? 'img/noimage.webp') }}" alt="">
-                            </div>
+                            <img src="{{ asset($slider->image ?? 'img/noimage.webp') }}" width="150">
                         </div>
 
                         <div class="form-group">
                             <label>Image</label>
-                            <input type="file" name="image" class="file-upload-default">
-                            <div class="input-group col-xs-12">
-                                <input type="text" class="form-control file-upload-info" disabled
-                                    placeholder="Upload Image">
-                                <span class="input-group-append">
-                                    <button class="file-upload-browse btn btn-primary" type="button">Upload</button>
-                                </span>
-                            </div>
+                            <input type="file" class="form-control" name="image">
                         </div>
+
                         <div class="form-group">
-                            <label for="name">Name</label>
-                            <input type="text" class="form-control" id="name" value="{{ $slider->name ?? '' }}"
-                                name="name" placeholder="Slider Title">
+                            <label>Name</label>
+                            <input type="text"
+                                class="form-control"
+                                name="name"
+                                value="{{ $slider->name ?? '' }}"
+                                placeholder="Slider Title">
                         </div>
+
                         <div class="form-group">
-                            <label for="content">Content</label>
-                            <textarea class="form-control" id="content" rows="4" name="content" placeholder="Slider Content">
-                                {!! $slider->content ?? '' !!}
+                            <label>Content</label>
+                            <textarea class="form-control" name="content" rows="4">
+                    {!! $slider->content ?? '' !!}
                             </textarea>
                         </div>
+
                         <div class="form-group">
-                            <label for="link">Slider Link</label>
-                            <input type="text" class="form-control" id="link" name="link"
-                                value="{{ $slider->link ?? '' }}" placeholder="Slider Link">
+                            <label>Slider Link</label>
+                            <input type="text"
+                                class="form-control"
+                                name="link"
+                                value="{{ $slider->link ?? '' }}"
+                                placeholder="Slider Link">
                         </div>
+
                         <div class="form-group">
-                            <label for="status">Status</label>
+                            <label>Status</label>
+
                             @php
                                 $status = $slider->status ?? '1';
                             @endphp
-                            <select name="status" id="status" class="form-control">
+
+                            <select name="status" class="form-control">
                                 <option value="0" {{ $status == '0' ? 'selected' : '' }}>Passive</option>
                                 <option value="1" {{ $status == '1' ? 'selected' : '' }}>Active</option>
                             </select>
                         </div>
-                        <button type="submit" class="btn btn-primary mr-2">Submit</button>
-                        <button class="btn btn-light">Cancel</button>
+
+                        <button type="submit" class="btn btn-primary">Submit</button>
                     </form>
                 </div>
             </div>

@@ -1,0 +1,85 @@
+
+    .custom-card {
+        border: none;
+        border-radius: 15px;
+        box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+        background: #fff;
+    }
+    .table thead th {
+        border-top: none;
+        text-transform: uppercase;
+        font-size: 0.75rem;
+        letter-spacing: 1px;
+        font-weight: 700;
+        color: #8898aa;
+        background-color: #f8f9fe;
+        padding: 15px;
+    }
+    .table tbody td {
+        vertical-align: middle;
+        padding: 1rem;
+        color: #525f7f;
+        font-size: 0.9rem;
+    }
+    .slider-img-container {
+        width: 60px;
+        height: 60px;
+        overflow: hidden;
+        border-radius: 10px;
+        box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    }
+    .slider-img-container img {
+        width: 100% !important;
+        height: 100%  !important;
+        border-radius: 0% !important;
+    }
+    /* Action Button Styles */
+    .btn-action {
+        padding: 6px 12px;
+        border-radius: 8px;
+        transition: all 0.3s;
+    }
+    .btn-edit { background: #5e72e4; color: white; border: none; }
+    .btn-edit:hover { background: #324cdd; transform: translateY(-1px); }
+    .btn-delete { background: #f5365c; color: white; border: none; }
+    .btn-delete:hover { background: #ec0c38; transform: translateY(-1px); }
+
+    /* Custom Toggle Switch */
+    .switch {
+        position: relative;
+        display: inline-block;
+        width: 45px;
+        height: 22px;
+    }
+    .switch input { opacity: 0; width: 0; height: 0; }
+    .slider-toggle {
+        position: absolute; cursor: pointer; top: 0; left: 0; right: 0; bottom: 0;
+        background-color: #ccc; transition: .4s; border-radius: 34px;
+    }
+    .slider-toggle:before {
+        position: absolute; content: ""; height: 16px; width: 16px; left: 3px; bottom: 3px;
+        background-color: white; transition: .4s; border-radius: 50%;
+    }
+    input:checked + .slider-toggle { background-color: #2dce89; }
+    input:checked + .slider-toggle:before { transform: translateX(23px); }
+
+    /* Smooth hover effect for action buttons */
+    .btn-sm {
+        transition: all 0.2s ease-in-out;
+    }
+
+    .btn-sm:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    }
+
+    /* Icon specific spacing */
+    .btn-sm i {
+        font-size: 0.85rem;
+    }
+
+    /* Optional: Different color for Edit Outline on hover */
+    .btn-outline-primary:hover {
+        background-color: #5e72e4;
+        color: white;
+    }

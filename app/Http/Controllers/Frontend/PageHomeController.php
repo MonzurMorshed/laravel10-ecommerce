@@ -13,7 +13,7 @@ class PageHomeController extends Controller
 {
     public function index(){
         // $slider = Slider::where('status', '1')->get();
-        $slider = Slider::where('status', '1')->first(); // tek veri gönderildiği zaman kullanılabilir
+        $slider = Slider::where('status', '1')->get(); // tek veri gönderildiği zaman kullanılabilir
 
         $about = About::where("id",1)->first();
 
