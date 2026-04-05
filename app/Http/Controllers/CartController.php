@@ -40,8 +40,14 @@ class CartController extends Controller
 
     public function index(){
         $cartItem = $this->cartList();
+        $breadcrumb = [
+            'pages' => [
+
+            ],
+            'active'=> 'Cart'
+        ];
         //return $cartItem;
-        return view('frontend.pages.cart', compact('cartItem'));
+        return view('frontend.pages.cart', compact('cartItem','breadcrumb'));
     }
 
     public function add(Request $request){
@@ -153,8 +159,14 @@ class CartController extends Controller
 
     public function cartform(){
         $cartItem = $this->cartList();
+        $breadcrumb = [
+            'pages' => [
+
+            ],
+            'active'=> 'Cart'
+        ];
         //return $cartItem;
-        return view('frontend.pages.cartform', compact('cartItem'));
+        return view('frontend.pages.cartform', compact('cartItem','breadcrumb'));
     }
 
     function generateKod() {

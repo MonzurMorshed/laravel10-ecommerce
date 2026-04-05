@@ -77,7 +77,7 @@
                             @if (!empty($categories) && $categories->count() > 0)
                                 @foreach ($categories->where('cat_ust', null) as $category)
                                     <li class="mb-1">
-                                        <a href="{{ route($category->slug . 'product') }}"
+                                        <a href="{{ route('product.category', ['slug' => $category->slug]) }}"
                                             class="d-flex"><span>{{ $category->name }}</span>
                                             {{-- <span class="text-black ml-auto">({{ $category->items_count }})</span> --}}
                                             <span
@@ -153,7 +153,7 @@
                                 {{-- @foreach ($allcategories->where('cat_ust', null) as $category) --}}
                                 @foreach ($categories->where('cat_ust', null) as $category)
                                     <div class="col-sm-6 col-md-6 col-lg-4 mb-4 mb-lg-0" data-aos="fade" data-aos-delay="">
-                                        <a class="block-2-item" href="{{ route($category->slug . 'product') }}">
+                                        <a class="block-2-item" href="{{ route('product.category', ['slug' => $category->slug]) }}">
                                             <figure class="image">
                                                 <img src="{{ asset($category->image) }}" alt="" class="img-fluid">
                                             </figure>

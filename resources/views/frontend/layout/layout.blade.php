@@ -6,7 +6,6 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-    // here will favicon be added in future
     <link rel="shortcut icon" href="{{ asset($settings['favicon'] ?? '') }}" type="image/x-icon"/>
 
     <link rel="stylesheet" href="{{ asset('/') }}fonts/icomoon/style.css">

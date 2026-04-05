@@ -33,6 +33,7 @@ class ProductController extends Controller
      */
     public function store(ProductRequest $request)
     {
+        // dd($request->all());
         if ($request->hasFile('image')) {
             $img = $request->file('image');
             $folderName = $request->name;
@@ -50,10 +51,10 @@ class ProductController extends Controller
             'size'=>$request->size,
             'color'=>$request->color,
             'qty'=>$request->qty,
-            'kdv'=>$request->kdv,
-            'title'=>$request->title,
-            'description'=>$request->description,
-            'keywords'=>$request->keywords,
+            // 'kdv'=>$request->kdv,
+            // 'title'=>$request->title,
+            // 'description'=>$request->description,
+            // 'keywords'=>$request->keywords,
             'status'=>$request->status,
             'image' => $imgurl ?? NULL,
         ]);
@@ -105,10 +106,10 @@ class ProductController extends Controller
             'size'=>$request->size,
             'color'=>$request->color,
             'qty'=>$request->qty,
-            'kdv'=>$request->kdv,
-            'title'=>$request->title,
-            'description'=>$request->description,
-            'keywords'=>$request->keywords,
+            // 'kdv'=>$request->kdv,
+            // 'title'=>$request->title,
+            // 'description'=>$request->description,
+            // 'keywords'=>$request->keywords,
             'status'=>$request->status,
             'image'=> $imgurl ?? $product->image
         ]);

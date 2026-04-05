@@ -32,108 +32,77 @@ class PageController extends Controller
         return view('frontend.pages.about', compact("about", 'breadcrumb'));
     }
 
-    public function product(Request $request, $slug=null){
-        // URL'nin ilk parçasına erişebilmeyi sağlsar.
-        $category = request()->segment(1) ?? null;
+    public function product(Request $request, $slug = null)
+{
+    // 1. Validate sorting inputs to prevent SQL injection/errors
+    $validOrders = ['id', 'price', 'name', 'created_at'];
+    $order = in_array($request->order, $validOrders) ? $request->order : 'id';
+    $sort = ($request->sort === 'asc') ? 'asc' : 'desc';
 
-        // if(!empty($request->size)){
-        //     $size = $request->size;
-        // }else{
-        //     $size = null;
-        // }
+    // 2. Extract and sanitize filters
+    $categorySlug = request()->segment(1);
+    $sizes = $request->filled('size') ? explode(',', $request->size) : null;
+    $colors = $request->filled('color') ? explode(',', $request->color) : null;
+    $minPrice = $request->min;
+    $maxPrice = $request->max;
 
-        // url'deki parametre sorguları
-        // /products?size=LARGE&color=Black&page=2
+    // 3. Resolve Categories & Breadcrumbs
+    $anaKategori = Category::where('slug', $categorySlug)->first();
+    $altKategori = $slug ? Category::where('slug', $slug)->first() : null;
 
-        // explode() fonksiyonu, bir dizeyi belirli bir ayraç veya karaktere göre parçalayan ve parçalanan parçaları bir dizi olarak döndürür
-        $sizes = !empty($request->size) ? explode(',', $request->size) : null;
-        $colors = !empty($request->color) ? explode(',', $request->color) : null;
-        $start_price = $request->min ?? null;
-        $end_price = $request->max ?? null;
+    $breadcrumb = ['pages' => [], 'active' => 'Products'];
 
-        $order = $request->order ?? 'id';
-        $sort = $request->sort ?? 'desc';
-
-
-        $anaKategori = null;
-        $altKategori = null;
-        if(!empty($category) && empty($slug)) {
-            $anaKategori = Category::where('slug',$category)->first();
-        }else if (!empty($category) && !empty($slug)){
-            $anaKategori = Category::where('slug',$category)->first();
-            $altKategori = Category::where('slug',$slug)->first();
-        }
-
-        $breadcrumb = [
-            'pages' => [
-
-            ],
-            'active'=> 'Products'
-        ];
-
-        if(!empty($anaKategori) && empty($altKategori)) {
-            $breadcrumb['active'] = $anaKategori->name;
-        }
-
-        if(!empty($altKategori)) {
+    if ($anaKategori) {
+        if ($altKategori) {
             $breadcrumb['pages'][] = [
-                'link'=> route($anaKategori->slug.'product'),
+                'link' => route($anaKategori->slug . 'product'), // Ensure this route exists
                 'name' => $anaKategori->name
             ];
-
             $breadcrumb['active'] = $altKategori->name;
+        } else {
+            $breadcrumb['active'] = $anaKategori->name;
         }
-
-        // return $breadcrumb;
-
-
-        $products = Product::where("status","1")
-        ->select(['id','name', 'slug', 'size', 'color', 'price', 'category_id', 'image'])
-        // filtreleme
-        ->where(function($q) use($sizes, $colors, $start_price, $end_price){
-            // where koşulu, veritabanı sorgusu içinde belirli bir sütunu belirli bir değere göre filtrelemek için kullanılır.
-            // whereIn koşulu, bir sütunun birden fazla değeri ile karşılaştırmak için kullanılır. Bu, sütunun bir dizi değerle eşleştiği durumlarda kullanışlıdır.
-            if(!empty($sizes)){
-                $q->whereIn('size', $sizes);
-            }
-            if(!empty($colors)){
-                $q->whereIn('color', $colors);
-            }
-            if(!empty($start_price) && $end_price){
-                // $q->whereBetween('price', [$start_price, $end_price]);
-                $q->where('price', '>=' , $start_price);
-                $q->where('price', '<=', $end_price);
-            }
-            return $q;
-        })
-        // with('category:id,name,slug') ile ilişkilendirilmiş kategorileri önceden yüklemiş oluyoruz
-        // whereHas('category', ...) ile belirli bir kritere uyan gönderileri alıyoruz
-        // whereHas ilişki tablosunda sorgu yapmada kullanılır
-        ->with('category:id,name,slug')
-        ->whereHas('category', function($q) use ($category, $slug){
-            if(!empty($slug)){
-                $q->where('slug', $slug);
-            }
-            return $q;
-        })->orderBy($order, $sort)->paginate(21);
-
-        if($request->ajax()){
-            $view = view('frontend.ajax.productList',compact('products'))->render();
-            return response(['data'=>$view, 'paginate'=>(string) $products->withQueryString()->links('vendor.pagination.custom')]);
-        }
-
-        $sizeLists = Product::where("status","1")->groupBy('size')->pluck('size')->toArray();
-
-        $colors = Product::where("status","1")->groupBy('color')->pluck('color')->toArray();
-
-        // ilişki kurulduğu için with kullanıldı
-        // sasdece sayısını istersek withCount kullanılır
-        // $categories = Category::where('status','1')->where('cat_ust', null)->withCount('items')->get();
-
-        $maxPrice = Product::max('price');
-
-        return view('frontend.pages.products', compact('breadcrumb', 'products' , 'maxPrice', 'sizeLists', 'colors'));
     }
+
+    // 4. Main Product Query
+    $products = Product::where("status", "1")
+        ->select(['id', 'name', 'slug', 'size', 'color', 'price', 'category_id', 'image'])
+        ->with('category:id,name,slug')
+        ->where(function($q) use ($sizes, $colors, $minPrice, $maxPrice) {
+            if (!empty($sizes)) $q->whereIn('size', $sizes);
+            if (!empty($colors)) $q->whereIn('color', $colors);
+            if (!empty($minPrice)) $q->where('price', '>=', $minPrice);
+            if (!empty($maxPrice)) $q->where('price', '<=', $maxPrice);
+        })
+        ->whereHas('category', function($q) use ($categorySlug, $slug) {
+            // Filter by sub-category if slug exists, otherwise by main category
+            $q->where('slug', $slug ?? $categorySlug);
+        })
+        ->orderBy($order, $sort)
+        ->paginate(21);
+
+    // 5. AJAX Handling
+    if ($request->ajax()) {
+        $view = view('frontend.ajax.productList', compact('products'))->render();
+        return response([
+            'data' => $view, 
+            'paginate' => (string) $products->withQueryString()->links('vendor.pagination.custom')
+        ]);
+    }
+
+    // 6. Sidebar Data (Consider Caching these if the inventory is large)
+    $sizeLists = Product::where("status", "1")->whereNotNull('size')->distinct()->pluck('size');
+    $colorLists = Product::where("status", "1")->whereNotNull('color')->distinct()->pluck('color');
+    $dbMaxPrice = Product::max('price');
+
+    return view('frontend.pages.products', [
+        'breadcrumb' => $breadcrumb,
+        'products'   => $products,
+        'maxPrice'   => $dbMaxPrice,
+        'sizeLists'  => $sizeLists,
+        'colors'     => $colorLists
+    ]);
+}
 
     public function saleproduct(){
         $breadcrumb = [
@@ -168,7 +137,7 @@ class PageController extends Controller
 
             if(!empty($category)) {
                 $breadcrumb['pages'][] = [
-                    'link'=> route($category->slug.'product'),
+                    'link'=> route('product.category', ['slug' => $category->slug]),
                     'name' => $category->name
                 ];
             }

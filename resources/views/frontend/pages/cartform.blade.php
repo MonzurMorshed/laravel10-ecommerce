@@ -22,7 +22,7 @@
                                 <label for="c_country" class="text-black">Country <span class="text-danger">*</span></label>
                                 <select id="c_country" name="country" class="form-control">
                                     <option value="">Select a country</option>
-                                    <option value="Turkey" selected>Türkiye</option>
+                                    <option value="Bangladesh" selected>Bangladesh</option>
                                 </select>
                             </div>
                             <div class="form-group row">
@@ -61,7 +61,7 @@
                                     <input type="text" class="form-control" id="c_state_country" name="district">
                                 </div>
                                 <div class="col-md-12">
-                                    <label for="c_postal_zip" class="text-black">Posta / Zip <span
+                                    <label for="c_postal_zip" class="text-black">Postal / Zip <span
                                             class="text-danger">*</span></label>
                                     <input type="text" class="form-control" id="c_postal_zip" name="zip_code">
                                 </div>
@@ -173,7 +173,9 @@
 
                                         </tbody>
                                     </table>
-
+    
+                                    {{-- <div class="border p-3 mb-3">
+                                        <h3 class="h6 mb-0"><
                                     <div class="border p-3 mb-3">
                                         <h3 class="h6 mb-0"><a class="d-block" data-toggle="collapse"
                                                 href="#collapsebank" role="button" aria-expanded="false"
@@ -216,6 +218,23 @@
                                         <div class="collapse" id="collapsepaypal">
                                             <div class="py-2">
                                                 <p class="mb-0">Make your payment directly into our bank account. Please
+                                                    use
+                                                    your Order ID as the payment reference. Your order won’t be shipped
+                                                    until
+                                                    the funds have cleared in our account.</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    --}}
+
+                                    <div class="border p-3 mb-5">
+                                        <h3 class="h6 mb-0"><a class="d-block" data-toggle="collapse"
+                                                href="#collapsepaypal" role="button" aria-expanded="false"
+                                                aria-controls="collapsepaypal">Cash on Delivery</a></h3>
+
+                                        <div class="collapse" id="collapsepaypal">
+                                            <div class="py-2">
+                                                <p class="mb-0">Make your payment. Please
                                                     use
                                                     your Order ID as the payment reference. Your order won’t be shipped
                                                     until

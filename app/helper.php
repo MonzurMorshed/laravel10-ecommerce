@@ -106,6 +106,7 @@ if (!function_exists('sifrele')) {
 
 if (!function_exists('sifrelecoz')) {
     function sifrelecoz($string){
+        // dd(decrypt($string));
         return decrypt($string);
     }
 }
