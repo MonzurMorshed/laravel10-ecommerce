@@ -41,7 +41,7 @@
                                                 <div class="checkbox">
                                                     <label>
                                                         <input type="checkbox" class="durum" data-on="Active"
-                                                            data-off="Passive" data-onstyle="success" data-offstyle="danger"
+                                                            data-off="Inactive" data-onstyle="success" data-offstyle="danger"
                                                             data-toggle="toggle"
                                                             {{ $item->status == '1' ? 'checked' : '' }}>
                                                     </label>

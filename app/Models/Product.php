@@ -14,6 +14,7 @@ class Product extends Model
         'slug',
         'image',
         'category_id',
+        'brand_id',
         'short_text',
         'price',
         'size',
@@ -26,6 +27,10 @@ class Product extends Model
 
     public function category(){
         return $this->hasOne(Category::class, 'id', 'category_id');
+    }
+
+    public function brand(){
+        return $this->hasOne(Brand::class, 'id', 'brand_id');
     }
 
     public function sluggable(): array

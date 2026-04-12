@@ -110,3 +110,9 @@ if (!function_exists('sifrelecoz')) {
         return decrypt($string);
     }
 }
+
+if (!function_exists('getBrands')) {
+    function getBrands(){
+        return \App\Models\Brand::where('status', 1)->get();
+    }
+}

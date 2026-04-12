@@ -6,6 +6,7 @@ use App\Http\Controllers\Backend\SliderController;
 use App\Http\Controllers\Backend\ContactController;
 use App\Http\Controllers\Backend\SettingController;
 use App\Http\Controllers\Backend\CategoryController;
+use App\Http\Controllers\Backend\BrandController;
 use App\Http\Controllers\Backend\DashboardController;
 use App\Http\Controllers\Backend\OrderController;
 use App\Http\Controllers\Backend\ProductController;
@@ -33,6 +34,11 @@ Route::group(['middleware' => ['panelsetting', 'auth'], 'prefix'=>'panel', 'as'=
     Route::get('/category', [CategoryController::class, 'index'])->name('category.list');
     Route::delete('/category/destroy', [CategoryController::class, 'destroy'])->name('category.destroy');
     Route::post('/category-status/update', [CategoryController::class, 'status'])->name('category.status');
+    //brand route
+    Route::resource('/brand', BrandController::class)->except(['index', 'destroy']);
+    Route::get('/brand', [BrandController::class, 'index'])->name('brand.list');
+    Route::delete('/brand/destroy', [BrandController::class, 'destroy'])->name('brand.destroy');
+    Route::post('/brand-status/update', [BrandController::class, 'status'])->name('brand.status');
     // about route
     Route::get('/about', [AboutController::class, 'index'])->name('about.index');
     Route::post('/about/update', [AboutController::class, 'update'])->name('about.update');

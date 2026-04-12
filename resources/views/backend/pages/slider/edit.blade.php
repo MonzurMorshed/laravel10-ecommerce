@@ -80,7 +80,7 @@
                             @endphp
 
                             <select name="status" class="form-control">
-                                <option value="0" {{ $status == '0' ? 'selected' : '' }}>Passive</option>
+                                <option value="0" {{ $status == '0' ? 'selected' : '' }}>Inactive</option>
                                 <option value="1" {{ $status == '1' ? 'selected' : '' }}>Active</option>
                             </select>
                         </div>

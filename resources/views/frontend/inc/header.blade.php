@@ -1,3 +1,6 @@
+@php
+    $brands = \App\Models\Brand::select('id', 'name', 'slug')->where('status', '1')->get();
+@endphp
 <header class="site-navbar bg-white border-bottom" role="banner">
     <div class="py-3 border-bottom">
         <div class="container">
@@ -8,6 +11,57 @@
                         <img src="{{ asset($settings['logo'] ?? '') }}" alt="Logo" style="height: 34px;">
                     </a>
                 </div>
+
+                <nav class="site-navigation border-bottom" role="navigation">
+                    <div class="container text-left text-md-center">
+                        <ul class="site-menu js-clone-nav d-none d-md-block list-unstyled m-0 py-2">
+                            <!-- <li class="active d-inline-block px-3"><a href="{{ route('index') }}" class="text-dark small font-weight-bold">Home</a></li> -->
+
+                            <li class="has-children d-inline-block px-3">
+                                <a href="#" class="text-dark small font-weight-bold">Categories <span class="icon-keyboard_arrow_down"></span></a>
+                                <ul class="dropdown shadow-sm border-0">
+                                    @if (!empty($categories) && $categories->count() > 0)
+                                        @foreach ($categories->where('cat_ust', null) as $category)
+                                            <li class="has-children px-2">
+                                                <a href="{{ route('product.category', ['slug' => $category->slug]) }}" class="d-flex justify-content-between">
+                                                    {{ $category->name }}
+                                                </a>
+                                                <ul class="dropdown">
+                                                    @foreach ($category->subCategory as $subCategory)
+                                                        <li>
+                                                            <a href="{{ route('product.category', ['slug' => $subCategory->slug]) }}">
+                                                                {{ $subCategory->name }}
+                                                            </a>
+                                                        </li>
+                                                    @endforeach
+                                                </ul>
+                                            </li>
+                                        @endforeach
+                                    @endif
+                                </ul>
+                            </li>
+
+                            <li class="has-children d-inline-block px-3">
+                                <a href="#" class="text-dark small font-weight-bold">Brands</a>
+                                <ul class="dropdown shadow-sm border-0">
+                                    @if (!empty($brands) && $brands->count() > 0)
+                                        @foreach ($brands as $brand)
+                                            <li class="has-children px-2">
+                                                <a href="{{ route('product.brand', ['slug' => $brand->slug]) }}" class="d-flex justify-content-between">
+                                                    {{ $brand->name }}
+                                                </a>
+                                            </li>
+                                        @endforeach
+                                    @endif
+                                </ul>
+                            </li>
+
+                            <!-- <li class="d-inline-block px-3"><a href="{{ route('about') }}" class="text-dark small font-weight-bold">About</a></li>
+                            <li class="d-inline-block px-3"><a href="{{ route('product') }}" class="text-dark small font-weight-bold">Shop</a></li> -->
+                            <li class="d-inline-block px-3"><a href="{{ route('contact') }}" class="text-dark small font-weight-bold">Contact</a></li>
+                        </ul>
+                    </div>
+                </nav>
 
                 <div class="flex-grow-1 mx-md-4 max-width-600">
                     <form action="" class="position-relative">
@@ -21,7 +75,7 @@
 
                 <div class="site-top-icons d-flex align-items-center">
                     <ul class="list-unstyled d-flex align-items-center m-0 gap-4">
-                        <li class="d-none d-lg-block">
+                        <!-- <li class="d-none d-lg-block">
                             <a href="#" class="text-dark font-weight-bold small text-uppercase">Support</a>
                         </li>
                         
@@ -29,7 +83,7 @@
                             <a href="#" class="btn btn-outline-danger btn-sm rounded-pill px-4 font-weight-bold">
                                 For Business
                             </a>
-                        </li>
+                        </li> -->
 
                         <li><a href="#"><span class="icon icon-person"></span></a></li>
                         <li>
@@ -54,39 +108,5 @@
         </div>
     </div>
 
-    <nav class="site-navigation border-bottom" role="navigation">
-        <div class="container text-left text-md-center">
-            <ul class="site-menu js-clone-nav d-none d-md-block list-unstyled m-0 py-2">
-                <li class="active d-inline-block px-3"><a href="{{ route('index') }}" class="text-dark small font-weight-bold">Home</a></li>
-                
-                <li class="has-children d-inline-block px-3">
-                    <a href="#" class="text-dark small font-weight-bold">Categories <span class="icon-keyboard_arrow_down"></span></a>
-                    <ul class="dropdown shadow-sm border-0">
-                        @if (!empty($categories) && $categories->count() > 0)
-                            @foreach ($categories->where('cat_ust', null) as $category)
-                                <li class="has-children px-2">
-                                    <a href="{{ route('product.category', ['slug' => $category->slug]) }}" class="d-flex justify-content-between">
-                                        {{ $category->name }}
-                                    </a>
-                                    <ul class="dropdown">
-                                        @foreach ($category->subCategory as $subCategory)
-                                            <li>
-                                                <a href="{{ route('product.category', ['slug' => $subCategory->slug]) }}">
-                                                    {{ $subCategory->name }}
-                                                </a>
-                                            </li>
-                                        @endforeach
-                                    </ul>
-                                </li>
-                            @endforeach
-                        @endif
-                    </ul>
-                </li>
-
-                <li class="d-inline-block px-3"><a href="{{ route('about') }}" class="text-dark small font-weight-bold">About</a></li>
-                <li class="d-inline-block px-3"><a href="{{ route('product') }}" class="text-dark small font-weight-bold">Shop</a></li>
-                <li class="d-inline-block px-3"><a href="{{ route('contact') }}" class="text-dark small font-weight-bold">Contact</a></li>
-            </ul>
-        </div>
-    </nav>
+    
 </header>

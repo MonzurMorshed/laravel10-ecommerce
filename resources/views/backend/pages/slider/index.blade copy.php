@@ -45,12 +45,12 @@
                                             <td>
                                                 {{-- <label
                                                     class="badge badge-{{ $slider->status == '1' ? 'success' : 'danger' }}">
-                                                    {{ $slider->status == '1' ? 'Active' : 'Passive' }}
+                                                    {{ $slider->status == '1' ? 'Active' : 'Inactive' }}
                                                 </label> --}}
                                                 <div class="checkbox">
                                                     <label>
                                                         <input type="checkbox" class="durum" data-on="Active"
-                                                            data-off="Passive" data-onstyle="success" data-offstyle="danger"
+                                                            data-off="Inactive" data-onstyle="success" data-offstyle="danger"
                                                             data-toggle="toggle"
                                                             {{ $slider->status == '1' ? 'checked' : '' }}>
                                                     </label>

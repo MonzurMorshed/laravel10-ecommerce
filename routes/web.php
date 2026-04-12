@@ -6,6 +6,7 @@ use App\Http\Controllers\AjaxController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\Frontend\PageController;
 use App\Http\Controllers\Frontend\PageHomeController;
+use Illuminate\Support\Facades\Artisan;
 
 /*
 |--------------------------------------------------------------------------
@@ -18,6 +19,23 @@ use App\Http\Controllers\Frontend\PageHomeController;
 |
 */
 
+Route::get('/clear-all', function () {
+    // Clear config cache
+    Artisan::call('config:clear');
+    
+    // Clear application cache
+    Artisan::call('cache:clear');
+    
+    // Clear route cache
+    Artisan::call('route:clear');
+    
+    // Clear compiled view files
+    Artisan::call('view:clear');
+
+    return "All systems cleared! Your application is now fresh.";
+});
+
+
 Route::group(['middleware' => 'sitesetting'], function(){
     Route::get('/', [PageHomeController::class, 'index'])->name('index');
     Route::get('/about', [PageController::class, 'about'])->name('about');
@@ -25,6 +43,7 @@ Route::group(['middleware' => 'sitesetting'], function(){
     Route::post('/contact/save', [AjaxController::class, 'contactsave'])->name('contact.save');
     Route::get('/product', [PageController::class, 'product'])->name('product');
     Route::get('category/{slug}', [PageController::class, 'product'])->name('product.category');
+    Route::get('brand/{slug}', [PageController::class, 'product'])->name('product.brand');
     // Route::get('category/{slug}/{slug2}', [PageController::class, 'product'])->name('product.category');
     // Route::get('/women/{slug?}', [PageController::class, 'product'])->name('womenproduct');
     // Route::get('/children/{slug?}', [PageController::class, 'product'])->name('childrenproduct');

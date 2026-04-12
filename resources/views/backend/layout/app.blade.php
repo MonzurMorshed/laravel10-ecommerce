@@ -27,9 +27,23 @@
     <link rel="stylesheet" href="{{ asset('backend') }}/css/alertify-bootstrap.min.css" />
     <!-- endinject -->
 
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+
     @yield('customcss')
 
     <meta name="csrf-token" content="{{ csrf_token() }}">
+
+    <style>
+        .form-control {
+            font-size: 14px !important;
+        }
+        .form-group label {
+            font-weight: 500;
+            color: #333;
+            font-size: 14px !important;
+        }
+    </style>
+
 </head>
 
 <body>
@@ -272,6 +286,17 @@
     <script src="{{ asset('backend') }}/js/bootstrap-toggle.min.js"></script>
 
     <script src="{{ asset('backend') }}/js/alertify.min.js"></script>
+
+
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            $('.select').select2({
+                placeholder: "Select",
+                allowClear: true
+            });
+        });
+    </script>
 
     @yield('customjs')
     <!-- End custom js for this page-->

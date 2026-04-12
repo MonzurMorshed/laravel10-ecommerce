@@ -21,6 +21,22 @@
             </div>
         </li>
         <li class="nav-item">
+            <a class="nav-link" data-toggle="collapse" href="#ui-basicBrand" aria-expanded="false" aria-controls="ui-basicBrand">
+                <i class="icon-layout menu-icon"></i>
+                <span class="menu-title">Brands</span>
+                <i class="menu-arrow"></i>
+            </a>
+            <div class="collapse" id="ui-basicBrand">
+                <ul class="nav flex-column sub-menu">
+                    <li class="nav-item"> <a class="nav-link {{ request()->routeIs('panel.brand.list') ? 'active' : '' }}" href="{{ route('panel.brand.list') }}">Brands</a>
+                    </li>
+                    <li class="nav-item"> <a class="nav-link {{ request()->routeIs('panel.brand.create') ? 'active' : '' }}" href="{{ route('panel.brand.create') }}">Create
+                            Brand</a>
+                    </li>
+                </ul>
+            </div>
+        </li>
+        <li class="nav-item">
             <a class="nav-link" data-toggle="collapse" href="#ui-basic1" aria-expanded="false" aria-controls="ui-basic1">
                 <i class="icon-layout menu-icon"></i>
                 <span class="menu-title">Categories</span>
